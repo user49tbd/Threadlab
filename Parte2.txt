@@ -1,0 +1,59 @@
+package Pack2;
+import java.util.concurrent.Semaphore;
+public class lab1b extends Thread{
+private int numb=0;
+Semaphore sem;
+private static int igquant=50;
+public lab1b(int numb,Semaphore sem) {
+this.numb=numb;
+this.sem = sem;
+}
+public void run() {
+try {
+int res = (int) ((Math.random()*1501)+500);
+if(res<=1000) {
+sleep(res);
+System.out.println("Thread: "+numb+" realizou a 1º etapa temp: "+res);
+comre();
+}else {
+System.out.println("Thread: "+numb+" não realizou a 1º etapa temp: "+res);
+
+}
+}catch(Exception e){
+}
+super.run();
+}
+public void comre() {
+int re = (int) ((Math.random()*1001)+2000);
+
+if(re<=2500) {
+try {
+sleep(re);
+igres();
+} catch (InterruptedException e) {
+// TODO Auto-generated catch block
+e.printStackTrace();
+}
+}else {
+System.out.println("Thread: "+numb+" não realizou a 2º etapa temp: "+re);
+
+}
+}
+public void igres() {
+try {
+sem.acquire();
+int re = (int) ((Math.random()*12)+1);
+if(igquant>=re) {
+igquant-=re;
+System.out.println("Thread: "+numb+" comprou: "+re+" ingresso(s) ainda tem: "+igquant+"ingresso(s)");
+
+}else {
+System.err.println("Thread: "+numb+"exedeu a quantidade de ingressos");
+
+}
+}catch(Exception a) {
+}finally {
+sem.release();
+}
+}
+}

@@ -1,0 +1,13 @@
+package Pack1;
+import java.util.concurrent.Semaphore;
+import Pack2.lab1b;
+public class lab1 {
+public static void main(String[]args) {
+int np=4;
+Semaphore sem = new Semaphore(np);
+for(int c=0;c<=300;c++) {
+Thread c2 = new lab1b(c,sem);
+c2.start();
+}
+}
+}
